@@ -1,0 +1,10 @@
+name: sync
+on:
+  schedule:
+    - cron: '*/15 * * * *' # every 15 minutes
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sync
+        run: npm run sync
