@@ -15,15 +15,16 @@ async function main() {
           await mailchimp.addMember(record)
         }
       } else {
-        if (record.fields[Airtable.cols.addToMailchimp] === 'Yes') {
-          await record.patchUpdate({ [Airtable.cols.addToMailchimp]: null })
-        }
         await sync(record, mailchimpMembers.get(emailKey)!)
       }
     }
 
     for (const [emailKey, mailchimpMember] of mailchimpMembers) {
-      if (!airtableRecords.has(emailKey)) {
+      if (
+        !airtableRecords.has(emailKey) &&
+        mailchimpMember.status !== 'cleaned' &&
+        mailchimpMember.status !== 'archived'
+      ) {
         await airtable.addRecord(mailchimpMember)
       }
     }

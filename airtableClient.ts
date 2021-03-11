@@ -45,7 +45,7 @@ export class Airtable {
               new Map(
                 allRecords
                   .filter(r => !!r.fields[Airtable.cols.email])
-                  .map(r => [r.fields[Airtable.cols.email].toLowerCase(), r])
+                  .map(r => [r.fields[Airtable.cols.email].trim().toLowerCase(), r])
               )
             )
           }
