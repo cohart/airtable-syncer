@@ -9,8 +9,8 @@ async function main() {
     const airtableRecords = await airtable.getAllRecords()
     const mailchimpMembers = await mailchimp.getAllMembers()
 
-    for (const [email, record] of airtableRecords) {
-      if (!mailchimpMembers.has(email)) {
+    for (const [emailKey, record] of airtableRecords) {
+      if (!mailchimpMembers.has(emailKey)) {
         if (record.fields[Airtable.cols.addToMailchimp] === 'Yes') {
           await mailchimp.addMember(record)
         }
@@ -18,12 +18,12 @@ async function main() {
         if (record.fields[Airtable.cols.addToMailchimp] === 'Yes') {
           await record.patchUpdate({ [Airtable.cols.addToMailchimp]: null })
         }
-        await sync(record, mailchimpMembers.get(email)!)
+        await sync(record, mailchimpMembers.get(emailKey)!)
       }
     }
 
-    for (const [email, mailchimpMember] of mailchimpMembers) {
-      if (!airtableRecords.has(email)) {
+    for (const [emailKey, mailchimpMember] of mailchimpMembers) {
+      if (!airtableRecords.has(emailKey)) {
         await airtable.addRecord(mailchimpMember)
       }
     }

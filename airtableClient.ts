@@ -17,6 +17,16 @@ export class Airtable {
     status: '🔒 Mailchimp status',
     addToMailchimp: 'Add to mailchimp?',
     lastModified: '🔒 Last Modified',
+    alphaSurvey: '🔒 Alpha survey',
+  }
+
+  async addSurveyResultRow(name: string, email: string, results: string) {
+    return airtableBase('All people').create({
+      [Airtable.cols.name]: name,
+      [Airtable.cols.email]: email,
+      [Airtable.cols.alphaSurvey]: results,
+      [Airtable.cols.addToMailchimp]: 'Yes',
+    })
   }
 
   async getAllRecords(): Promise<Map<string, Record>> {
@@ -33,7 +43,9 @@ export class Airtable {
           () => {
             resolve(
               new Map(
-                allRecords.filter(r => !!r.fields[Airtable.cols.email]).map(r => [r.fields[Airtable.cols.email], r])
+                allRecords
+                  .filter(r => !!r.fields[Airtable.cols.email])
+                  .map(r => [r.fields[Airtable.cols.email].toLowerCase(), r])
               )
             )
           }

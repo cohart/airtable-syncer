@@ -22,7 +22,7 @@ class Mailchimp {
       allMembers = allMembers.concat(members)
       lastBatchSize = members.length
     }
-    return new Map(allMembers.map(m => [m.email_address, m]))
+    return new Map(allMembers.map(m => [m.email_address.toLowerCase(), m]))
   }
 
   async getListMembersFromOffset(count: number, offset: number): Promise<MailchimpMember[]> {
