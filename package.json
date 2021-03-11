@@ -10,6 +10,7 @@
     "airtable": "0.10.1",
     "dotenv": "8.2.0",
     "mailchimp-api-v3": "1.14.0",
-    "ts-node": "9.1.1"
+    "ts-node": "9.1.1",
+    "typescript": "4.2.2"
   }
 }
