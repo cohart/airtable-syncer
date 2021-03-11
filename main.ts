@@ -46,11 +46,9 @@ async function syncName(airtableRecord: Record, mailchimpMember: MailchimpMember
   }
 
   if ((!airtableName || airtableName === '') && mailchimpName !== '') {
-    console.log(`syncing name to '${mailchimpName}'`)
     await airtableRecord.patchUpdate({ [Airtable.cols.name]: mailchimpName })
   } else if (airtableName && airtableName !== '') {
     const name = mailchimp.separateName(airtableName)
-    console.log(`syncing name to ${name[0]} ${name[1]}`)
     await mailchimp.updateName(mailchimpMember, name[0], name[1])
   }
 }

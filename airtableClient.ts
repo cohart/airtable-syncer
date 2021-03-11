@@ -42,7 +42,7 @@ export class Airtable {
   }
 
   async addRecord(mailchimpMember: MailchimpMember) {
-    console.log(`adding ${mailchimpMember.email_address} to airtable`)
+    console.log(`adding member ${mailchimpMember.id} to airtable`)
 
     return airtableBase('All people').create({
       [Airtable.cols.name]: mailchimp.getNameFromMember(mailchimpMember),
@@ -59,7 +59,7 @@ export class Airtable {
     ) {
       return
     }
-    console.log(`updating ${airtableRecord.fields[Airtable.cols.email]} in airtable`)
+    console.log(`updating record ${airtableRecord.id} in airtable`)
     return airtableRecord.patchUpdate({
       [Airtable.cols.status]: mailchimpMember.status,
       [Airtable.cols.tags]: mailchimp.getTagsFromMember(mailchimpMember),

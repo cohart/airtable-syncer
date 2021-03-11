@@ -32,14 +32,14 @@ class Mailchimp {
     return members
   }
 
-  async addMember({ fields }: Record) {
-    console.log(`adding ${fields[Airtable.cols.email]} to mailchimp`)
-    const name = this.separateName(fields[Airtable.cols.name])
+  async addMember(record: Record) {
+    console.log(`adding record ${record.id} to mailchimp`)
+    const name = this.separateName(record.fields[Airtable.cols.name])
     await mailchimpApi.post(`/lists/${this.listId}/members`, {
       status: 'pending',
-      email_address: fields[Airtable.cols.email],
+      email_address: record.fields[Airtable.cols.email],
       merge_fields: { FNAME: name[0], LNAME: name[1] },
-      tags: fields[Airtable.cols.tags],
+      tags: record.fields[Airtable.cols.tags],
     })
   }
 
