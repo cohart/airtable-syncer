@@ -34,13 +34,16 @@ export class Airtable {
       const allRecords: Record[] = []
 
       airtableBase('All people')
-        .select({ view: 'All potential users' })
+        .select()
         .eachPage(
           (records, fetchNextPage) => {
             allRecords.push(...records)
             fetchNextPage()
           },
-          () => {
+          (err: any) => {
+            if (err) {
+              reject(err)
+            }
             resolve(
               new Map(
                 allRecords
