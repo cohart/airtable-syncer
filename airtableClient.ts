@@ -21,7 +21,7 @@ export class Airtable {
   }
 
   async addSurveyResultRow(name: string, email: string, results: string) {
-    return airtableBase('All people').create({
+    return airtableBase('Art World').create({
       [Airtable.cols.name]: name,
       [Airtable.cols.email]: email,
       [Airtable.cols.alphaSurvey]: results,
@@ -33,7 +33,7 @@ export class Airtable {
     return new Promise((resolve, reject) => {
       const allRecords: Record[] = []
 
-      airtableBase('All people')
+      airtableBase('Art World')
         .select()
         .eachPage(
           (records, fetchNextPage) => {
@@ -59,7 +59,7 @@ export class Airtable {
   async addRecord(mailchimpMember: MailchimpMember) {
     console.log(`adding member ${mailchimpMember.id} to airtable`)
 
-    return airtableBase('All people').create({
+    return airtableBase('Art World').create({
       [Airtable.cols.name]: mailchimp.getNameFromMember(mailchimpMember),
       [Airtable.cols.email]: mailchimpMember.email_address,
       [Airtable.cols.tags]: mailchimp.getTagsFromMember(mailchimpMember),
