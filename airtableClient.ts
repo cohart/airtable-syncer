@@ -75,10 +75,6 @@ export class Airtable {
       return
     }
     console.log(`updating record ${airtableRecord.id} in airtable`)
-    console.log({
-      [Airtable.cols.status]: mailchimpMember.status,
-      [Airtable.cols.tags]: mailchimp.getTagsFromMember(mailchimpMember),
-    })
     return airtableRecord.patchUpdate({
       [Airtable.cols.status]: mailchimpMember.status,
       [Airtable.cols.tags]: mailchimp.getTagsFromMember(mailchimpMember),
